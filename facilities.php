@@ -1,3 +1,19 @@
+<?php
+    session_start();
+    if(isset($_SESSION['hostel']) && $_SESSION['first_name'] && $_SESSION['last_name']){
+        $hostel = $_SESSION['hostel'];
+        $fname = $_SESSION['first_name'];
+        $lname = $_SESSION['last_name'];
+    }   
+    require_once 'sso_handler.php';
+    $CLIENT_ID = 'SFsZFHeP4dPDVm1xo8XzN1BWxlkAUPp4mCPfiExv';
+    $CLIENT_SECRET = 'MhyphhUDvRiTwYhLFl6ZaU6BWdcBKUElAGdGCkC5a23yVPWYvAjQL3f0sKuLdtLidNZlZQEBOwuN9EFWg2ikfaOxf46UXad1pQX02XPf6sSvVu17qdw9trjmoIct1bMB';
+    $permissions = 'basic profile insti_address';
+    $response_type = 'code';
+    $state = 'user_login';
+    $sso_handler = new SSOHandler($CLIENT_ID, $CLIENT_SECRET);
+    $url = $sso_handler->gen_auth_url($response_type, $state, $permissions);
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -51,6 +67,7 @@
             <div class="nav-menu">
                 <nav class="mainmenu mobile-menu">
                     <ul>
+                        <li ><a href="index.php" >Home</a></li>
                         <li><a href="council.php">Council & Staff</a></li>
                         <li><a href="schedule.php">Documents</a> <ul class="dropdown">
                                 <li><a href="about-us.html">Hostel Rules</a></li>
@@ -59,7 +76,7 @@
                                 <li><a href="./blog-single.html">Guest Room Policy</a></li>
                             </ul>
                         </li>
-                        <li><a href="facilities.php">Facilities Available</a></li>
+                        <li class="active"><a href="facilities.php">Facilities Available</a></li>
                         <?php
                             if(isset($hostel)){
                                 if($hostel == 18){
@@ -88,7 +105,7 @@
                         <li><a href="contact.php">Reach Us</a></li>
                         <?php 
                             if(!isset($fname)){
-                                echo "<li><a href='.$url.' class='primary-btn about-btn'>SSO Login</a></li>"; 
+                                echo "<li><a href='$url' class='primary-btn about-btn'>SSO Login</a></li>"; 
                             }   
                             else{
                                 if(isset($fname) && isset($lname)){

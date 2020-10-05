@@ -1,13 +1,18 @@
 <?php
-require_once 'sso_handler.php';
-$CLIENT_ID = "SFsZFHeP4dPDVm1xo8XzN1BWxlkAUPp4mCPfiExv";
-$CLIENT_SECRET = "MhyphhUDvRiTwYhLFl6ZaU6BWdcBKUElAGdGCkC5a23yVPWYvAjQL3f0sKuLdtLidNZlZQEBOwuN9EFWg2ikfaOxf46UXad1pQX02XPf6sSvVu17qdw9trjmoIct1bMB";
-$response_type = 'code';
-$state = "user_login";
-$perissions = "basic profile insti_address";
-$sso_handler = new SSOHandler($CLIENT_ID, $CLIENT_SECRET);
-$url = $sso_handler->gen_auth_url($response_type, $state, $permissions);
-echo $url;
+    session_start();
+    if(isset($_SESSION['hostel']) && $_SESSION['first_name'] && $_SESSION['last_name']){
+        $hostel = $_SESSION['hostel'];
+        $fname = $_SESSION['first_name'];
+        $lname = $_SESSION['last_name'];
+    }   
+    require_once 'sso_handler.php';
+    $CLIENT_ID = 'SFsZFHeP4dPDVm1xo8XzN1BWxlkAUPp4mCPfiExv';
+    $CLIENT_SECRET = 'MhyphhUDvRiTwYhLFl6ZaU6BWdcBKUElAGdGCkC5a23yVPWYvAjQL3f0sKuLdtLidNZlZQEBOwuN9EFWg2ikfaOxf46UXad1pQX02XPf6sSvVu17qdw9trjmoIct1bMB';
+    $permissions = 'basic profile insti_address';
+    $response_type = 'code';
+    $state = 'user_login';
+    $sso_handler = new SSOHandler($CLIENT_ID, $CLIENT_SECRET);
+    $url = $sso_handler->gen_auth_url($response_type, $state, $permissions);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -33,9 +38,9 @@ echo $url;
     <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <link rel="stylesheet" href="https://www.mockplus.com/css/icon/iconfont.css?v=77">
+    <!-- <link rel="stylesheet" href="https://www.mockplus.com/css/icon/iconfont.css?v=77">
     <link rel="stylesheet" href="https://www.mockplus.com/enUS/css/global.css?v=77">
-    <link rel="stylesheet" href="https://www.mockplus.com/enUS/css/blog.css?v=77">
+    <link rel="stylesheet" href="https://www.mockplus.com/enUS/css/blog.css?v=77"> -->
 <!--     <script src="https://www.mockplus.com/js/lib/jquery-1.11.2.min.js"></script>
     <script src="https://www.mockplus.com/js/pagination.js"></script>
     <script src="https://www.mockplus.com/js/global.js?v=77"></script> -->
@@ -57,176 +62,73 @@ echo $url;
     </div>
 
     <!-- Header Section Begin -->
-<!--     <header class="header-section">
+    <header class="header-section" style="background-color:white">
         <div class="container-fluid">
             <div class="logo">
                 <a href="./index.html">
-                    <img src="img/logo.png" alt="">
+                    <!-- <img src="img/logo.png" alt=""> -->
                 </a>
-            </div>
-            <div class="top-social">
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                <a href="#"><i class="fa fa-instagram"></i></a>
             </div>
             <div class="container">
                 <div class="nav-menu">
                     <nav class="mainmenu mobile-menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="./about-us.html">About us</a></li>
-                            <li><a href="./schedule.html">Schedule</a></li>
-                            <li><a href="./gallery.html">Gallery</a></li>
-                            <li><a href="./blog.html">Blog</a>
-                                <ul class="dropdown">
-                                    <li><a href="./about-us.html">About Us</a></li>
-                                    <li><a href="./blog-single.html">Blog Details</a></li>
+                            <li class="active"><a href="index.php" >Home</a></li>
+                            <li><a href="council.php">Council & Staff</a></li>
+                            <li><a href="schedule.php">Documents</a> <ul class="dropdown">
+                                    <li><a href="about-us.html">Hostel Rules</a></li>
+                                    <li><a href="./blog-single.html">Election Document</a></li>
+                                    <li><a href="./blog-single.html">MOM</a></li>
+                                    <li><a href="./blog-single.html">Guest Room Policy</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./contact.html">Contacts</a></li>
+                            <li><a href="facilities.php">Facilities Available</a></li>
+                            <?php
+                                if(isset($hostel)){
+                                    if($hostel == 18){
+                                        echo
+                                        '<li><a href="">Forms</a>
+                                            <ul class="dropdown">
+                                                <li><a href="./about-us.html">Mess Rebate</a></li>
+                                                <li><a href="./blog-single.html">Room Vacation Form</a></li>
+                                                <li><a href="./blog-single.html">Room Joining Form</a></li>
+                                                <li><a href="./blog-single.html">Mess Referendum</a></li>
+                                                <li><a href="./blog-single.html">Bonafide, FR</a></li>
+                                            </ul>
+                                        </li>';
+                                    }
+                                }
+                            ?>
+                            <li><a href="">Maintanance Complaints</a>
+                                <ul class="dropdown">
+                                    <a href="./about-us.html">Support Portal</a>
+                                    <!-- <li><a href="./blog-single.html">Room Vacation Form</a></li>
+                                    <li><a href="./blog-single.html">Room Joining Form</a></li>
+                                    <li><a href="./blog-single.html">Mess Referendum</a></li>
+                                    <li><a href="./blog-single.html">Bonafide, FR</a></li> -->
+                                </ul>
+                            </li>
+                            <li><a href="contact.php">Reach Us</a></li>
+                            <?php 
+                                if(!isset($fname)){
+                                    echo "<li><a href='$url' class='primary-btn about-btn'>SSO Login</a></li>"; 
+                                }   
+                                else{
+                                    if(isset($fname) && isset($lname)){
+                                        echo "<li><a href=''>Hi, $fname&nbsp$lname</a></li>"; 
+                                    }
+                                } 
+                            ?>
                         </ul>
                     </nav>
                 </div>
             </div>
             <div id="mobile-menu-wrap"></div>
         </div>
-    </header> -->
-    <!-- Header End -->
-
-    <!-- Hero Section Begin -->
-
-    <header style="padding-bottom:20px !important">
-	    <div class="header-content">
-	        <a href="index.html" class="logo">
-	            <i class="iconfont icon_logo"></i>
-	            &nbsp;Hostel 18
-	        </a>
-	        <div class="nav-menu">
-	            <div class="nav-item">
-	                <span>Council & Staff<i class="iconfont icon_broad_back"></i></span>
-	                
-	            </div>
-	            <div class="nav-item">
-	                <span>Documents<i class="iconfont icon_broad_back"></i></span>
-	                <div class="nav-menu-drop">
-	                    <ul class="download-nav">
-	                        <li>
-	                            <h3>Mockplus RP</h3>
-	                            <div class="download-box">
-	                                <a href="/download/mockplus-rp" target="_blank">
-	                                    <i class="iconfont icon_list_pc"></i>
-	                                    <p>Mockplus for Windows/Mac</p>
-	                                    <span>Prototype faster, smarter and easier</span>
-	                                </a>
-	                                <a href="/download/mockplus-rp-app" target="_blank">
-	                                    <i class="iconfont icon_list_app"></i>
-	                                    <p>Mockplus for iOS/Android</p>
-	                                    <span>Test app prototypes on real devices</span>
-	                                </a>
-	                                <a href="/download/mockplus-rp-sketch" target="_blank">
-	                                    <i class="iconfont icon_list_sk"></i>
-	                                    <p>Mockplus for Sketch</p>
-	                                    <span>Turn Sketch designs into interactive prototypes</span>
-	                                </a>
-	                            </div>
-	                        </li>
-	                        <li>
-	                            <h3>Mockplus iDoc integrations</h3>
-	                            <div class="download-box">
-	                                <a href="/download/mockplus-idoc-ps" target="_blank">
-	                                    <i class="iconfont icon_list_ps"></i>
-	                                    <p>Photoshop</p>
-	                                    <span>Handoff PS designs with accurate specs, assets & code snippets</span>
-	                                </a>
-	                                <a href="/download/mockplus-idoc-axure" target="_blank">
-	                                    <i class="iconfont icon_list_rp"></i>
-	                                    <p>Axure</p>
-	                                    <span>Export wireframes and prorotypes from Axure</span>
-	                                </a>
-	                                <a href="/download/mockplus-idoc-sketch" target="_blank">
-	                                    <i class="iconfont icon_list_sk"></i>
-	                                    <p>Sketch</p>
-	                                    <span>Handoff Sketch designs with accurate specs, assets & code snippets</span>
-	                                </a>
-	                                <a href="/download/mockplus-idoc-xd" target="_blank">
-	                                    <i class="iconfont icon_list_xd"></i>
-	                                    <p>Adobe XD </p>
-	                                    <span>Handoff Sketch designs with accurate specs, assets & code snippets</span>
-	                                </a>
-	                            </div>
-	                        </li>
-	                    </ul>
-	                </div>
-	            </div>
-	            <div class="nav-item">
-	                <a href="facilities.html">Facilities Available</a>
-	            </div>
-	            <div class="nav-item">
-	                <span>Forms<i class="iconfont icon_broad_back"></i></span>
-	                <div class="nav-menu-drop">
-	                    <ul class="price-nav">
-	                        <li>
-	                            <a href="/buy/mockplus-rp" onclick="ga('send', 'event', 'rp pricing', 'click', 'Mockplus-home', 1);">
-	                                <span class="sprites head-icon1"></span>
-	                                <h3>Mockplus RP</h3>
-	                                <p>Simple plans for everyone</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="/buy/mockplus-idoc" onclick="ga('send', 'event', 'idoc pricing', 'click', 'Mockplus-home', 1);">
-	                                <span class="sprites head-icon1"></span>
-	                                <h3>Mockplus iDoc</h3>
-	                                <p>Plans that scale with your team</p>
-	                            </a>
-	                        </li>
-	                    </ul>
-	                </div>
-	            </div>
-	            
-	            <div class="nav-item">
-	                <span>Maintainance Complaints<i class="iconfont icon_broad_back"></i></span>
-	                <div class="nav-menu-drop">
-	                    <ul class="price-nav">
-	                        <li>
-	                            <a href="https://help.mockplus.com/p/96">
-	                                <span class="sprites head-icon4"></span>
-	                                <h3>Samples</h3>
-	                                <p>Design faster with ready-to-use prototype templates and UI kits for web and mobile apps</p>
-	                            </a>
-	                        </li>
-	                        <li>
-	                            <a href="/resource">
-	                                <span class="sprites head-icon5"></span>
-	                                <h3>Free materials</h3>
-	                                <p>A huge collection of UX/UI design resources and inspirations will help you design better</p>
-	                            </a>
-	                        </li>
-	                    </ul>
-	                </div>
-	            </div>
-	            <div class="nav-item">
-	                <a href="/blog">Reach Us</a>
-	            </div>
-	        </div>
-                <div class="header-user sso-root">
-                        <?php echo '<a href="'.$url.'" class="user-btn">Sign In</a>'; ?>
-                </div>
-	        <!--        手机端显示-->
-	        <div class="iconfont icon_menu ph-menu-icon"></div>
-	        <div class="ph-head">
-	            <a href="/?home=1" class="logo">
-	                <i class="iconfont icon_logo"></i>
-	                &nbsp;Mockplus
-	            </a>
-	            <div class="iconfont icon_menu_close ph-menu-icon"></div>
-	        </div>
-	    </div>
-	</header>
-    <!-- <section class="testimonial-section set-bg spad" style="padding:0px"> -->
+    </header> 
+    <section class="testimonial-section set-bg spad" style="padding:0px">
             <div class="row" style="width:100%;margin:0px">
-                <div class="col-lg-12">
+                <div class="col-lg-12"  style="padding:0px">
                     <div class="testimonial-slider owl-carousel">
                         <div class="ts-item">
 		                    <div class="single-hero-item set-bg" data-setbg="img/hero-slider/hero-4.jpg">
@@ -892,11 +794,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
         new SSO_JS({
             config: {
-                client_id: 'your-long-client-id',   // Compulsory
-                scope: ['basic', 'profile'],    // Optional. Default is  ['basic']
-                state: '', // Optional. Default None
+                client_id: 'SFsZFHeP4dPDVm1xo8XzN1BWxlkAUPp4mCPfiExv',   // Compulsory
+                scope: ['basic', 'profile', 'insti_address'],    // Optional. Default is  ['basic']
+                state: 'user_logon', // Optional. Default None
                 response_type: 'code',  // Optional. Default is 'code'
-                redirect_uri: 'uri-for-redirection',    //Optional
+                redirect_uri: 'http://localhost/hostel-18/sso.php',    //Optional
                 sso_root: document.getElementById('sso-root'),
                 /* Optional
                  document.getElementById don't work if your element is not in light DOM. In that case you need to
@@ -941,7 +843,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 <script src="https://www.mockplus.com/js/global.js?v=77"></script>
 <script>
-	$('header').css("backgroundColor","transparent");
   (function insertInnerAd() {
     var parr = $('#post-content > p');
     var insertp;
@@ -975,22 +876,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
       share();
     });
 
-  //固定白色header
-  var winWidth = $(window).width();
-  $(window).scroll(function () {
-      var top = $(window).scrollTop();
-      if (top > 1 || winWidth < 999 ) {
-          $('header').css({"boxShadow":"rgb(220, 220, 220) 0 2px 10px"});
-          $('header').css({"backgroundColor":"#fff"});
-          $('.iconfont').css({"Color":"black"});
-      } else {
-          $('header').css({"boxShadow":"none"});
-          $('header').css({"backgroundColor":"transparent"});
-           $('.iconfont').css({"Color":"#fff"});
-      }
-  });
 
-  adHeader();
 
   //分享链接跳转
   var URL = window.location.href;
@@ -1009,15 +895,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 	  var url = 'https://www.linkedin.com/shareArticle?mini=true&url=' + URL;
 	  window.open(url, '_blank');
   });
-</script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-65309978-1', 'auto');
-  ga('send', 'pageview');
 </script>
 <script>
   // 搜索

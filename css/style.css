@@ -160,14 +160,12 @@ ol {
 .primary-btn {
 	display: inline-block;
 	font-size: 14px;
-	font-family: "Oswald", sans-serif;
 	font-weight: 600;
 	padding: 0 12px;
 	color: #ffffff;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	text-align: center;
-	width: 160px;
 	height: 46px;
 	border-left: 2px solid #e16521;
 	border-right: 2px solid #e4381C;
@@ -331,8 +329,8 @@ ol {
 -----------------------*/
 
 .header-section {
-	padding-top: 40px;
-	position: absolute;
+	padding: 20px;
+	position: sticky;
 	left: 0;
 	top: 0;
 	width: 100%;
@@ -414,16 +412,15 @@ ol {
 }
 
 .nav-menu .mainmenu ul li a {
-	color: #ffffff;
+	color: black;
 	font-size: 16px;
-	text-transform: uppercase;
 	font-weight: 500;
-	line-height: 28px;
+	/* line-height: 28px; */
 	-webkit-transition: 0.3s;
 	-o-transition: 0.3s;
 	transition: 0.3s;
 	display: block;
-	font-family: "Oswald", sans-serif;
+	/* font-family: "Oswald", sans-serif; */
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
