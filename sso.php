@@ -2,7 +2,7 @@
 require_once 'sso_handler.php';
 $CLIENT_ID = "SFsZFHeP4dPDVm1xo8XzN1BWxlkAUPp4mCPfiExv";
 $CLIENT_SECRET = "MhyphhUDvRiTwYhLFl6ZaU6BWdcBKUElAGdGCkC5a23yVPWYvAjQL3f0sKuLdtLidNZlZQEBOwuN9EFWg2ikfaOxf46UXad1pQX02XPf6sSvVu17qdw9trjmoIct1bMB";
-$REDIRECT_URI = "http://localhost/hostel-18/sso.php";
+$REDIRECT_URI = "https://gymkhana.iitb.ac.in/~hostel18/sso.php";
 $required_fields = array('username','first_name','last_name','insti_address');
 $required_scopes = array('basic','profile','insti_address');
 $options =  array('user_login');
